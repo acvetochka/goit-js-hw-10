@@ -18,3 +18,13 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+.country {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.country-title {
+  font-size: 25px;
+}
