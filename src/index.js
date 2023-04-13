@@ -7,11 +7,14 @@ const DEBOUNCE_DELAY = 300;
 
 const input = document.querySelector('#search-box');
 const container = document.querySelector('.country-info');
+const list = document.querySelector('.country-list');
 
 const onInput = debounce(evt => {
   const name = evt.target.value.trim();
   if (!name) {
-    return (container.innerHTML = '');
+    container.innerHTML = '';
+    list.innerHTML = '';
+    return;
   }
   fetchCountries(name)
     .then(choiceCountry)
@@ -24,12 +27,16 @@ function choiceCountry(countries) {
     Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
-    return (container.innerHTML = '');
+    container.innerHTML = '';
+    list.innerHTML = '';
+    return;
   }
   if (arrLength === 1) {
+    list.innerHTML = '';
     return renderCountryInfo(countries);
   }
   if (arrLength > 1) {
+    container.innerHTML = '';
     return renderCountriesAll(countries);
   }
 }
@@ -53,12 +60,12 @@ function renderCountryInfo(countries) {
 function renderCountriesAll(countries) {
   const markup = countries
     .map(country => {
-      return `<div class="country">
+      return `<li class="country">
       <img src="${country.flags.svg}" width="50" height="30" alt="flag of ${country.name.official}">
-      <p>${country.name.official}</p></div>`;
+      <p>${country.name.official}</p></li>`;
     })
     .join('');
-  container.innerHTML = markup;
+  list.innerHTML = markup;
 }
 
 input.addEventListener('input', onInput);

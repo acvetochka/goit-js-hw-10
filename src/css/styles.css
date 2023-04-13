@@ -28,3 +28,7 @@ body {
 .country-title {
   font-size: 25px;
 }
+
+.country-list {
+  padding-left: 0;
+}
